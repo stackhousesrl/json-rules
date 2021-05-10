@@ -31,6 +31,8 @@ const operators = {
   weq: (a, b) => a == b,
   // not weak equals:
   nweq: (a, b) => a != b,
+  // equal number:
+  eqn: (a, b) => forceNumber(a) === parseFloat(b),
   // greater:
   gt: (a, b) => forceNumber(a) > parseFloat(b),
   // greater / equal:

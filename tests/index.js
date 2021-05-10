@@ -217,6 +217,12 @@ describe('Operators', function () {
       const [isValid] = jrules({ a: 'c' }, { a: 'b' })
       expect(isValid).to.be.false;
     });
+
+    it('valid number', function () {
+      const [isValid] = jrules({ a: { eqn: '1' } }, { a: 1 })
+      expect(isValid).to.be.true;
+    });
+
   });
 
   describe('eqb', function () {
