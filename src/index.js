@@ -24,11 +24,19 @@ function rule(val, data, options) {
 }
 
 function checkRule(block, data, results, options) {
-  if (Object.prototype.hasOwnProperty.call(block, 'and'))
+  if (Object.prototype.hasOwnProperty.call(block, 'and')) {
+    if (options && options.checkAll) {
+      return block.and.map((item) => checkRule(item, data, results, options)).every(Boolean);
+    }
     return block.and.every((item) => checkRule(item, data, results, options));
+  }
 
-  if (Object.prototype.hasOwnProperty.call(block, 'or'))
+  if (Object.prototype.hasOwnProperty.call(block, 'or')) {
+    if (options && options.checkAll) {
+      return block.and.map((item) => checkRule(item, data, results, options)).some(Boolean);
+    }
     return block.or.some((item) => checkRule(item, data, results, options));
+  }
 
   const res = rule(block, data, options);
 

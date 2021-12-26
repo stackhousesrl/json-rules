@@ -9,6 +9,7 @@
 - - string is equal
 - - array is include
 - - prefix options
+- - checkAll options
 - - ^ for skip prefix
 
 ## Code

@@ -618,7 +618,7 @@ describe('Operators', function () {
 
       const rulesByType = [
         {
-          hours: { eq: 13, name: 'AAAA' },
+          hours: { eq: 13, name: 'error name' },
         },
         {
           or: [
@@ -642,7 +642,7 @@ describe('Operators', function () {
 
       const rulesByType = [
         {
-          '#dati.hours': { eq: 13, name: 'AAAA' },
+          '#dati.hours': { eq: 13, name: 'Error name' },
         },
       ]
 
@@ -703,30 +703,39 @@ describe('Operators', function () {
         }); */
 
     it('test flow', function () {
-      const [isValid, okk, errors] = jrules([
-        {
-          '^hasError': { eq: false }
-        },
-        {
-          or: [
-            {
-              [`^app.nextDisable`]: { ex: false }
-            },
-            {
-              [`^app.nextDisable`]: { eq: false }
-            }
-          ]
-        }
-      ],
-        {
-          app: {
-            nextDisable: false
+      const [isValid, errors, a] = jrules({
+        and: [
+          {
+            '^hasError': { eq: false }
           },
+          {
+            'aaaa': { eq: 'bbbb' }
+          },
+          {
+            'bbbb': { eq: 'ccc' }
+          },
+          /* {
+            or: [
+              {
+                [`^app.nextDisable`]: { ex: false }
+              },
+              {
+                [`^app.nextDisable`]: { eq: false }
+              }
+            ]
+          } */
+        ]
+      },
+        {
+          aaaa: 'bbbb',
+          bbbb: 'ccc',
           hasError: false
-        })
+        }, false, {
+          checkAll: true
+      })
 
-        console.log(errors)
-      expect(isValid).to.be.true;
+      // console.log('e', errors)
+      expect(isValid).to.be.false;
     });
 
   })
