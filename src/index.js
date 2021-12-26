@@ -6,7 +6,8 @@ function rule(val, data, options) {
   const { prefix } = options || {}
   const path = val.path || Object.keys(val)[0];
   const valueBlock = val.path ? { [path]: val } : val;
-  const valueForKey = _get(data, getPath(path, prefix), undefined);
+  const pathWithPrefix = getPath(path, prefix)
+  const valueForKey = _get(data, pathWithPrefix, undefined);
   const { name } = _get(valueBlock, [path], {})
   const { op, value, opt } = getDefaultRule(valueBlock[path]);
   const valueRef = value && (Object.prototype.hasOwnProperty.call(value, 'ref')
@@ -19,7 +20,7 @@ function rule(val, data, options) {
   }
 
   const valid = operators[op] && operators[op](valueForKey, valueTransformed, opt, data);
-  return { valid, name }
+  return { valid, name: pathWithPrefix + '___' + (name || op) }
 }
 
 function checkRule(block, data, results, options) {

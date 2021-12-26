@@ -703,7 +703,7 @@ describe('Operators', function () {
         }); */
 
     it('test flow', function () {
-      const [isValid] = jrules([
+      const [isValid, okk, errors] = jrules([
         {
           '^hasError': { eq: false }
         },
@@ -725,6 +725,7 @@ describe('Operators', function () {
           hasError: false
         })
 
+        console.log(errors)
       expect(isValid).to.be.true;
     });
 
