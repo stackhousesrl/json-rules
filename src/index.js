@@ -28,13 +28,15 @@ function checkRule(block, data, results, options) {
     if (options && options.checkAll) {
       return block && block.and.map((item) => checkRule(item, data, results, options)).every(Boolean);
     }
+    if (block && block.and && !block.and.length) return true
     return block.and.every((item) => checkRule(item, data, results, options));
   }
 
   if (Object.prototype.hasOwnProperty.call(block, 'or')) {
     if (options && options.checkAll) {
-      return block && block.and.map((item) => checkRule(item, data, results, options)).some(Boolean);
+      return block && block.or.map((item) => checkRule(item, data, results, options)).some(Boolean);
     }
+    if (block && block.or && !block.or.length) return true
     return block.or.some((item) => checkRule(item, data, results, options));
   }
 
